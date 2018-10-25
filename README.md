@@ -1,4 +1,4 @@
-# Coffeekraken s-{component-name}-component <img src=".resources/coffeekraken-logo.jpg" height="25px" />
+# Coffeekraken s-icon-component <img src=".resources/coffeekraken-logo.jpg" height="25px" />
 
 <p>
 	<!-- <a href="https://travis-ci.org/coffeekraken/s-icon-component">
@@ -31,23 +31,24 @@ Easily integrate icons using various driver like "img", "fonticon", "svg", "font
 
 ## Table of content
 
-1. **[Demo](http://components.coffeekraken.io/app/s-{component-name}-component)**
+1. **[Demo](http://components.coffeekraken.io/app/s-icon-component)**
 2. [Install](#readme-install)
 3. [Get Started](#readme-get-started)
-4. [Javascript API](doc/js)
-5. [SASS API](doc/sass)
-6. [Sugar Web Components Documentation](https://github.com/coffeekraken/sugar/blob/master/doc/webcomponent.md)
-7. [Browsers support](#readme-browsers-support)
-8. [Code linting](#readme-code-linting)
-9. [Contribute](#readme-contribute)
-10. [Who are Coffeekraken?](#readme-who-are-coffeekraken)
-11. [Licence](#readme-license)
+4. [Drivers](#readme-drivers)
+5. [Global configuration](#readme-global-configuration)
+6. [Javascript API](doc/js)
+7. [Sugar Web Components Documentation](https://github.com/coffeekraken/sugar/blob/master/doc/webcomponent.md)
+8. [Browsers support](#readme-browsers-support)
+9. [Code linting](#readme-code-linting)
+10. [Contribute](#readme-contribute)
+11. [Who are Coffeekraken?](#readme-who-are-coffeekraken)
+12. [Licence](#readme-license)
 
 <a name="readme-install"></a>
 ## Install
 
 ```
-npm install coffeekraken-s-{component-name}-component --save
+npm install coffeekraken-s-icon-component --save
 ```
 
 <a name="readme-get-started"></a>
@@ -56,13 +57,53 @@ npm install coffeekraken-s-{component-name}-component --save
 First, import the component into your javascript file like so:
 
 ```js
-import ComponentName from 'coffeekraken-s-{component-name}-component'
+import SIconComponent from 'coffeekraken-s-icon-component'
 ```
 
 Then simply use it inside your html like so:
 
 ```html
-<s-{component-name}></s-{component-name}>
+<s-icon icon="address-book" driver="fontawesome"></s-icon>
+<s-icon icon="my-cool-icon" driver="svg" icons-path="/icons"></s-icon>
+```
+
+<a name="readme-drivers"></a>
+## Drivers
+
+Here the list of drivers available and how they work:
+
+1. `fonticon` : This driver assume that you have a fonticon in yout project.
+  - Generate a `<i>` with class of `icon-{icon}`
+2. `img` : This driver create an `<img>` tag and load your svg icon inside it
+  - Depend on the `iconsPath` property
+  - Generate an `<img>` tag with the source `{iconsPath}/{icon}.svg`
+3. `svg` : This driver load the svg and put it inline in the page
+  - Depend on the `iconsPath` property
+  - Inline the svg loaded from `{iconsPath}/{icon}.svg`
+4. `fontawesome` : Load [fontawesome](https://fontawesome.com/) and generate an `<i>` tag with the proper fontawesome class
+5. `material` : Load [material icons](https://material.io/tools/icons/?style=baseline) and generate an `<i>` tag with the proper material class
+6. `foundation` : Load [foundation icons](https://zurb.com/playground/foundation-icon-fonts-3) and generate an `<i>` tag with the proper foundation class
+
+
+<a name="readme-global-configuration"></a>
+## Global configuration
+
+In order to avoid writing each time `driver="fontawesome"` etc, you can configure your component globally one time then use it quicker. Here how to do that:
+
+```js
+import SWebComponent from 'coffeekraken-sugar/js/core/SWebComponent'
+SWebComponent.setDefaultProps({
+  driver: 'svg',
+  iconsPath: '/icons'
+}, 's-icon')
+```
+
+This code need to be run BEFORE you import the `coffeekraken-s-icon-component`.
+
+You can then use your component with ease like so:
+
+```html
+<s-icon icon="my-cool-icon"></s-icon>
 ```
 
 <a id="readme-browsers-support"></a>
