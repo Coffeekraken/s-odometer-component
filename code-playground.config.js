@@ -3,7 +3,7 @@ module.exports = {
   port: 3000,
 
   // title
-  title: 's-{component-name}-component',
+  title: 's-icon-component',
 
   // layout
   layout: 'right',
@@ -22,12 +22,31 @@ module.exports = {
       language: 'html',
       data: `
         <h1 class="h3 m-b-small">
-          Coffeekraken s-{component-name}-component
+          Coffeekraken s-icon-component
         </h1>
-        <p class="p m-b-bigger">
-          {component-description}
+        <p class="p p--lead m-b-bigger">
+          Easily integrate icons using various driver like "img", "fonticon", "svg", "fontawesome", "material" and "foundation"
         </p>
-        <!-- examples here... -->
+        <p class="p m-b">
+          <s-icon icon="address-book" driver="img" icons-path="/demo/icons" title="Address book"></s-icon>
+          "img" driver
+        </p>
+        <p class="p m-b">
+          <s-icon icon="address-book" driver="svg" icons-path="/demo/icons" title="Address book"></s-icon>
+          "svg" driver
+        </p>
+        <p class="p m-b">
+          <s-icon icon="address-book" driver="fontawesome" title="Address book"></s-icon>
+          "fontawesome" driver
+        </p>
+        <p class="p m-b">
+          <s-icon icon="3d_rotation" driver="material" title="3d rotation"></s-icon>
+          "material" driver
+        </p>
+        <p class="p m-b">
+          <s-icon icon="heart" driver="foundation" title="Heart"></s-icon>
+          "foundation" driver
+        </p>
       `
     },
     css: {
@@ -41,14 +60,13 @@ module.exports = {
         body {
           padding: s-space(bigger);
         }
-        // component css here...
       `
     },
     js: {
       language: 'js',
       data: `
         import 'webcomponents.js/webcomponents-lite'
-        import Component from './dist/index'
+        import SIconComponent from './dist/index'
       `
     }
   }
