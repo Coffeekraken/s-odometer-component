@@ -13,10 +13,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -93,27 +89,22 @@ function (_SWebComponent) {
       switch (this.props.driver) {
         case 'fonticon':
           return Promise.resolve("<i class=\"".concat(this.props.iconsPrefix).concat(this.props.icon, "\" aria-hidden></i>"));
-          break;
 
         case 'img':
           return Promise.resolve("<img src=\"".concat(this.props.iconsPath, "/").concat(this.props.icon, ".svg\" alt=\"").concat(this.props.title, "\" />"));
-          break;
-
-        case 'svg':
-          return Promise.resolve(this._loadSvgIcon());
-          break;
 
         case 'fontawesome':
           return Promise.resolve("<i class=\"fa fa-".concat(this.props.icon, "\" aria-hidden></i>"));
-          break;
 
         case 'material':
           return Promise.resolve("<i class=\"material-icons\" aria-hidden>".concat(this.props.icon, "</i>"));
-          break;
 
         case 'foundation':
           return Promise.resolve("<i class=\"fi-".concat(this.props.icon, "\" aria-hidden></i>"));
-          break;
+
+        case 'svg':
+        default:
+          return Promise.resolve(this._loadSvgIcon());
       }
     }
     /**
@@ -125,35 +116,45 @@ function (_SWebComponent) {
     value: function _injectLibraryDependingOnDriver() {
       switch (this.props.driver) {
         case 'fontawesome':
-          var fontawesomeElm = document.querySelector('link#s-fontawesome');
-          if (fontawesomeElm) return;
-          var linkFontawesomeElm = document.createElement('link');
-          linkFontawesomeElm.setAttribute('id', 's-fontawesome');
-          linkFontawesomeElm.setAttribute('rel', 'stylesheet');
-          linkFontawesomeElm.setAttribute('href', 'https://use.fontawesome.com/releases/v5.4.1/css/all.css');
-          linkFontawesomeElm.setAttribute('integrity', 'sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz');
-          linkFontawesomeElm.setAttribute('crossorigin', 'anonymous');
-          document.head.appendChild(linkFontawesomeElm);
-          break;
+          {
+            var fontawesomeElm = document.querySelector('link#s-fontawesome');
+            if (fontawesomeElm) return;
+            var linkFontawesomeElm = document.createElement('link');
+            linkFontawesomeElm.setAttribute('id', 's-fontawesome');
+            linkFontawesomeElm.setAttribute('rel', 'stylesheet');
+            linkFontawesomeElm.setAttribute('href', 'https://use.fontawesome.com/releases/v5.4.1/css/all.css');
+            linkFontawesomeElm.setAttribute('integrity', 'sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz');
+            linkFontawesomeElm.setAttribute('crossorigin', 'anonymous');
+            document.head.appendChild(linkFontawesomeElm);
+            break;
+          }
 
         case 'material':
-          var materialElm = document.querySelector('link#s-material');
-          if (materialElm) return;
-          var linkMaterialElm = document.createElement('link');
-          linkMaterialElm.setAttribute('id', 's-material');
-          linkMaterialElm.setAttribute('href', 'https://fonts.googleapis.com/icon?family=Material+Icons');
-          linkMaterialElm.setAttribute('rel', 'stylesheet');
-          document.head.appendChild(linkMaterialElm);
-          break;
+          {
+            var materialElm = document.querySelector('link#s-material');
+            if (materialElm) return;
+            var linkMaterialElm = document.createElement('link');
+            linkMaterialElm.setAttribute('id', 's-material');
+            linkMaterialElm.setAttribute('href', 'https://fonts.googleapis.com/icon?family=Material+Icons');
+            linkMaterialElm.setAttribute('rel', 'stylesheet');
+            document.head.appendChild(linkMaterialElm);
+            break;
+          }
 
         case 'foundation':
-          var foundationElm = document.querySelector('link#s-foundation');
-          if (foundationElm) return;
-          var foundationLinkElm = document.createElement('link');
-          foundationLinkElm.setAttribute('id', 's-foundation');
-          foundationLinkElm.setAttribute('href', 'https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css');
-          foundationLinkElm.setAttribute('rel', 'stylesheet');
-          document.head.appendChild(foundationLinkElm);
+          {
+            var foundationElm = document.querySelector('link#s-foundation');
+            if (foundationElm) return;
+            var foundationLinkElm = document.createElement('link');
+            foundationLinkElm.setAttribute('id', 's-foundation');
+            foundationLinkElm.setAttribute('href', 'https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css');
+            foundationLinkElm.setAttribute('rel', 'stylesheet');
+            document.head.appendChild(foundationLinkElm);
+            break;
+          }
+
+        default:
+          // do nothing by default
           break;
       }
     }
@@ -163,38 +164,19 @@ function (_SWebComponent) {
 
   }, {
     key: "_loadSvgIcon",
-    value: function () {
-      var _loadSvgIcon2 = _asyncToGenerator(
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee() {
-        var _this2 = this;
+    value: function _loadSvgIcon() {
+      var _this2 = this;
 
-        return regeneratorRuntime.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                return _context.abrupt("return", new Promise(function (resolve, reject) {
-                  _axios.default.get("".concat(_this2.props.iconsPath, "/").concat(_this2.props.icon, ".svg")).then(function (response) {
-                    var domParser = new DOMParser();
-                    var docElm = domParser.parseFromString(response.data, 'text/html');
-                    var svgElm = docElm.querySelector('svg');
-                    svgElm.setAttribute('aria-hidden', true);
-                    resolve(svgElm.outerHTML);
-                  });
-                }));
-
-              case 1:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this);
-      }));
-
-      return function _loadSvgIcon() {
-        return _loadSvgIcon2.apply(this, arguments);
-      };
-    }()
+      return new Promise(function (resolve) {
+        _axios.default.get("".concat(_this2.props.iconsPath, "/").concat(_this2.props.icon, ".svg")).then(function (response) {
+          var domParser = new DOMParser();
+          var docElm = domParser.parseFromString(response.data, 'text/html');
+          var svgElm = docElm.querySelector('svg');
+          svgElm.setAttribute('aria-hidden', true);
+          resolve(svgElm.outerHTML);
+        });
+      });
+    }
     /**
      * Inject icon
      * @param    {String}    iconHtml    The html of the icon to inject
@@ -214,50 +196,35 @@ function (_SWebComponent) {
 
   }, {
     key: "componentWillReceiveProp",
-    value: function () {
-      var _componentWillReceiveProp = _asyncToGenerator(
-      /*#__PURE__*/
-      regeneratorRuntime.mark(function _callee2(name, newVal, oldVal) {
-        var html;
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                _get(_getPrototypeOf(Component.prototype), "componentWillReceiveProp", this).call(this, name, newVal, oldVal);
+    value: function componentWillReceiveProp(name, newVal, oldVal) {
+      var _this3 = this;
 
-                _context2.t0 = name;
-                _context2.next = _context2.t0 === 'icon' ? 4 : _context2.t0 === 'driver' ? 9 : 11;
-                break;
+      _get(_getPrototypeOf(Component.prototype), "componentWillReceiveProp", this).call(this, name, newVal, oldVal);
 
-              case 4:
-                _context2.next = 6;
-                return this._generateIconHtmlDependingOnDriver();
+      switch (name) {
+        case 'icon':
+          {
+            // inject the new icon
+            this._generateIconHtmlDependingOnDriver().then(function (html) {
+              _this3._injectIcon(html);
+            });
 
-              case 6:
-                html = _context2.sent;
-
-                this._injectIcon(html);
-
-                return _context2.abrupt("break", 11);
-
-              case 9:
-                // inject library depending on driver
-                this._injectLibraryDependingOnDriver();
-
-                return _context2.abrupt("break", 11);
-
-              case 11:
-              case "end":
-                return _context2.stop();
-            }
+            break;
           }
-        }, _callee2, this);
-      }));
 
-      return function componentWillReceiveProp(_x, _x2, _x3) {
-        return _componentWillReceiveProp.apply(this, arguments);
-      };
-    }()
+        case 'driver':
+          {
+            // inject library depending on driver
+            this._injectLibraryDependingOnDriver();
+
+            break;
+          }
+
+        default:
+          // do nothing by default
+          break;
+      }
+    }
   }], [{
     key: "defaultCss",
 
@@ -266,7 +233,7 @@ function (_SWebComponent) {
      * @protected
      */
     value: function defaultCss(componentName, componentNameDash) {
-      return "\n      ".concat(componentNameDash, " {\n        display : inline-block;\n        font-size: 1em;\n        vertical-align: middle;\n      }\n      ").concat(componentNameDash, " img,\n      ").concat(componentNameDash, " svg {\n        width: auto; height: 1em;\n      }\n    ");
+      return "\n      ".concat(componentNameDash, " {\n        display : inline-block;\n        font-size: 1em;\n        vertical-align: middle;\n        text-rendering: auto;\n        -webkit-font-smoothing: antialiased;\n      }\n      ").concat(componentNameDash, " img,\n      ").concat(componentNameDash, " svg {\n        width: auto; height: 1em;\n      }\n    ");
     }
   }, {
     key: "defaultProps",
@@ -310,14 +277,7 @@ function (_SWebComponent) {
          * @prop
          * @type    {String}
          */
-        iconsPrefix: 'icon-',
-
-        /**
-         * Specify a title for a11y
-         * @prop
-         * @type    {String}
-         */
-        title: null
+        iconsPrefix: 'icon-'
       };
     }
   }]);

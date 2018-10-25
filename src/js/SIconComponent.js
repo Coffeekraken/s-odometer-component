@@ -55,6 +55,8 @@ export default class Component extends SWebComponent {
         display : inline-block;
         font-size: 1em;
         vertical-align: middle;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
       }
       ${componentNameDash} img,
       ${componentNameDash} svg {
@@ -96,22 +98,17 @@ export default class Component extends SWebComponent {
     switch (this.props.driver) {
       case 'fonticon':
         return Promise.resolve(`<i class="${this.props.iconsPrefix}${this.props.icon}" aria-hidden></i>`)
-      break
       case 'img':
         return Promise.resolve(`<img src="${this.props.iconsPath}/${this.props.icon}.svg" alt="${this.props.title}" />`)
-      break
-      case 'svg':
-        return Promise.resolve(this._loadSvgIcon())
-      break
       case 'fontawesome':
         return Promise.resolve(`<i class="fa fa-${this.props.icon}" aria-hidden></i>`)
-      break
       case 'material':
         return Promise.resolve(`<i class="material-icons" aria-hidden>${this.props.icon}</i>`)
-      break
       case 'foundation':
         return Promise.resolve(`<i class="fi-${this.props.icon}" aria-hidden></i>`)
-      break
+      case 'svg':
+      default:
+        return Promise.resolve(this._loadSvgIcon())
     }
   }
 
@@ -120,7 +117,7 @@ export default class Component extends SWebComponent {
    */
   _injectLibraryDependingOnDriver () {
     switch (this.props.driver) {
-      case 'fontawesome':
+      case 'fontawesome': {
         const fontawesomeElm = document.querySelector('link#s-fontawesome')
         if (fontawesomeElm) return
         const linkFontawesomeElm = document.createElement('link')
@@ -130,8 +127,9 @@ export default class Component extends SWebComponent {
         linkFontawesomeElm.setAttribute('integrity', 'sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz')
         linkFontawesomeElm.setAttribute('crossorigin', 'anonymous')
         document.head.appendChild(linkFontawesomeElm)
-      break
-      case 'material':
+        break
+      }
+      case 'material': {
         const materialElm = document.querySelector('link#s-material')
         if (materialElm) return
         const linkMaterialElm = document.createElement('link')
@@ -139,8 +137,9 @@ export default class Component extends SWebComponent {
         linkMaterialElm.setAttribute('href', 'https://fonts.googleapis.com/icon?family=Material+Icons')
         linkMaterialElm.setAttribute('rel', 'stylesheet')
         document.head.appendChild(linkMaterialElm)
-      break
-      case 'foundation':
+        break
+      }
+      case 'foundation': {
         const foundationElm = document.querySelector('link#s-foundation')
         if (foundationElm) return
         const foundationLinkElm = document.createElement('link')
@@ -148,6 +147,10 @@ export default class Component extends SWebComponent {
         foundationLinkElm.setAttribute('href', 'https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css')
         foundationLinkElm.setAttribute('rel', 'stylesheet')
         document.head.appendChild(foundationLinkElm)
+        break
+      }
+      default:
+        // do nothing by default
       break
     }
   }
@@ -155,8 +158,8 @@ export default class Component extends SWebComponent {
   /**
    * Load the svg icon
    */
-  async _loadSvgIcon () {
-    return new Promise((resolve, reject) => {
+  _loadSvgIcon () {
+    return new Promise((resolve) => {
       __axios.get(`${this.props.iconsPath}/${this.props.icon}.svg`).then((response) => {
         const domParser = new DOMParser()
         const docElm = domParser.parseFromString(response.data, 'text/html')
@@ -181,17 +184,23 @@ export default class Component extends SWebComponent {
    * @definition    SWebComponent.componentWillReceiveProp
    * @protected
    */
-  async componentWillReceiveProp (name, newVal, oldVal) {
+  componentWillReceiveProp (name, newVal, oldVal) {
     super.componentWillReceiveProp(name, newVal, oldVal)
     switch (name) {
-      case 'icon':
+      case 'icon': {
         // inject the new icon
-        const html = await this._generateIconHtmlDependingOnDriver()
-        this._injectIcon(html)
-      break
-      case 'driver':
+        this._generateIconHtmlDependingOnDriver().then((html) => {
+          this._injectIcon(html)
+        })
+        break
+      }
+      case 'driver': {
         // inject library depending on driver
         this._injectLibraryDependingOnDriver()
+        break
+      }
+      default:
+        // do nothing by default
       break
     }
   }
