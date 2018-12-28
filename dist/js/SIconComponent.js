@@ -94,7 +94,7 @@ function (_SWebComponent) {
           return Promise.resolve("<img src=\"".concat(this.props.iconsPath, "/").concat(this.props.icon, ".svg\" alt=\"").concat(this.props.title, "\">"));
 
         case "fontawesome":
-          return Promise.resolve("<i class=\"fab fa-".concat(this.props.icon, "\" aria-hidden></i>"));
+          return Promise.resolve("<i class=\"".concat(this.props.icon, "\" aria-hidden></i>"));
 
         case "material":
           return Promise.resolve("<i class=\"material-icons\" aria-hidden>".concat(this.props.icon, "</i>"));
