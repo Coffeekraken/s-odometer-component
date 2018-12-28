@@ -117,7 +117,7 @@ export default class Component extends SWebComponent {
         )
       case "fontawesome":
         return Promise.resolve(
-          `<i class="fa fa-${this.props.icon}" aria-hidden></i>`
+          `<i class="fab fa-${this.props.icon}" aria-hidden></i>`
         )
       case "material":
         return Promise.resolve(
