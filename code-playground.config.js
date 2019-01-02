@@ -3,23 +3,21 @@ module.exports = {
   port: 3000,
 
   // title
-  title: 's-icon-component',
+  title: "s-icon-component",
 
   // layout
-  layout: 'right',
+  layout: "right",
 
   // compile server
   compileServer: {
-
     // compile server port
     port: 4000
-
   },
 
   // editors
   editors: {
     html: {
-      language: 'html',
+      language: "html",
       data: `
         <h1 class="h3 m-b-small">
           Coffeekraken s-icon-component
@@ -36,7 +34,7 @@ module.exports = {
           "svg" driver
         </p>
         <p class="p m-b">
-          <s-icon icon="address-book" driver="fontawesome" title="Address book"></s-icon>
+          <s-icon icon="fas fa-address-book" driver="fontawesome" title="Address book"></s-icon>
           "fontawesome" driver
         </p>
         <p class="p m-b">
@@ -50,7 +48,7 @@ module.exports = {
       `
     },
     css: {
-      language: 'sass',
+      language: "sass",
       data: `
         @import 'node_modules/coffeekraken-sugar/index';
         @import 'node_modules/coffeekraken-s-typography-component/index';
@@ -63,9 +61,8 @@ module.exports = {
       `
     },
     js: {
-      language: 'js',
+      language: "js",
       data: `
-        import 'webcomponents.js/webcomponents-lite'
         import SIconComponent from './dist/index'
       `
     }
