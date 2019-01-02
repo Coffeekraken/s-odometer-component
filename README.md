@@ -29,7 +29,7 @@
 
 Easily integrate icons using various driver like "img", "fonticon", "svg", "fontawesome", "material" and "foundation"
 
-[![Edit coffeekraken-s-icon-component](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/wk5o861kl?autoresize=1&view=preview)
+[![View demo](http://components.coffeekraken.io/assets/img/view-demo.png)](http://components.coffeekraken.io/app/s-icon-component)
 
 ## Table of content
 
