@@ -77,7 +77,7 @@ function (_SWebComponent) {
     key: "_applyDefaultAttributes",
     value: function _applyDefaultAttributes() {
       // aria hidden
-      this.setAttribute("aria-hidden", true);
+      this.setAttribute('aria-hidden', true);
     }
     /**
      * Generate the icon html depending on the driver
@@ -87,22 +87,22 @@ function (_SWebComponent) {
     key: "_generateIconHtmlDependingOnDriver",
     value: function _generateIconHtmlDependingOnDriver() {
       switch (this.props.driver) {
-        case "fonticon":
+        case 'fonticon':
           return Promise.resolve("<i class=\"".concat(this.props.iconsPrefix).concat(this.props.icon, "\" aria-hidden></i>"));
 
-        case "img":
+        case 'img':
           return Promise.resolve("<img src=\"".concat(this.props.iconsPath, "/").concat(this.props.icon, ".svg\" alt=\"").concat(this.props.title, "\">"));
 
-        case "fontawesome":
+        case 'fontawesome':
           return Promise.resolve("<i class=\"".concat(this.props.icon, "\" aria-hidden></i>"));
 
-        case "material":
+        case 'material':
           return Promise.resolve("<i class=\"material-icons\" aria-hidden>".concat(this.props.icon, "</i>"));
 
-        case "foundation":
+        case 'foundation':
           return Promise.resolve("<i class=\"fi-".concat(this.props.icon, "\" aria-hidden></i>"));
 
-        case "svg":
+        case 'svg':
         default:
           return Promise.resolve(this._loadSvgIcon());
       }
@@ -115,40 +115,40 @@ function (_SWebComponent) {
     key: "_injectLibraryDependingOnDriver",
     value: function _injectLibraryDependingOnDriver() {
       switch (this.props.driver) {
-        case "fontawesome":
+        case 'fontawesome':
           {
-            var fontawesomeElm = document.querySelector("link#s-fontawesome");
+            var fontawesomeElm = document.querySelector('link#s-fontawesome');
             if (fontawesomeElm) return;
-            var linkFontawesomeElm = document.createElement("link");
-            linkFontawesomeElm.setAttribute("id", "s-fontawesome");
-            linkFontawesomeElm.setAttribute("rel", "stylesheet");
-            linkFontawesomeElm.setAttribute("href", "https://use.fontawesome.com/releases/v5.4.1/css/all.css");
-            linkFontawesomeElm.setAttribute("integrity", "sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz");
-            linkFontawesomeElm.setAttribute("crossorigin", "anonymous");
+            var linkFontawesomeElm = document.createElement('link');
+            linkFontawesomeElm.setAttribute('id', 's-fontawesome');
+            linkFontawesomeElm.setAttribute('rel', 'stylesheet');
+            linkFontawesomeElm.setAttribute('href', this.props.fontawesomeCssUrl);
+            linkFontawesomeElm.setAttribute('integrity', this.props.fontawesomeCssIntegrity);
+            linkFontawesomeElm.setAttribute('crossorigin', 'anonymous');
             document.head.appendChild(linkFontawesomeElm);
             break;
           }
 
-        case "material":
+        case 'material':
           {
-            var materialElm = document.querySelector("link#s-material");
+            var materialElm = document.querySelector('link#s-material');
             if (materialElm) return;
-            var linkMaterialElm = document.createElement("link");
-            linkMaterialElm.setAttribute("id", "s-material");
-            linkMaterialElm.setAttribute("href", "https://fonts.googleapis.com/icon?family=Material+Icons");
-            linkMaterialElm.setAttribute("rel", "stylesheet");
+            var linkMaterialElm = document.createElement('link');
+            linkMaterialElm.setAttribute('id', 's-material');
+            linkMaterialElm.setAttribute('href', 'https://fonts.googleapis.com/icon?family=Material+Icons');
+            linkMaterialElm.setAttribute('rel', 'stylesheet');
             document.head.appendChild(linkMaterialElm);
             break;
           }
 
-        case "foundation":
+        case 'foundation':
           {
-            var foundationElm = document.querySelector("link#s-foundation");
+            var foundationElm = document.querySelector('link#s-foundation');
             if (foundationElm) return;
-            var foundationLinkElm = document.createElement("link");
-            foundationLinkElm.setAttribute("id", "s-foundation");
-            foundationLinkElm.setAttribute("href", "https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css");
-            foundationLinkElm.setAttribute("rel", "stylesheet");
+            var foundationLinkElm = document.createElement('link');
+            foundationLinkElm.setAttribute('id', 's-foundation');
+            foundationLinkElm.setAttribute('href', this.props.fondationCssUrl);
+            foundationLinkElm.setAttribute('rel', 'stylesheet');
             document.head.appendChild(foundationLinkElm);
             break;
           }
@@ -170,9 +170,9 @@ function (_SWebComponent) {
       return new Promise(function (resolve) {
         _axios.default.get("".concat(_this2.props.iconsPath, "/").concat(_this2.props.icon, ".svg")).then(function (response) {
           var domParser = new DOMParser();
-          var docElm = domParser.parseFromString(response.data, "text/html");
-          var svgElm = docElm.querySelector("svg");
-          svgElm.setAttribute("aria-hidden", true);
+          var docElm = domParser.parseFromString(response.data, 'text/html');
+          var svgElm = docElm.querySelector('svg');
+          svgElm.setAttribute('aria-hidden', true);
           resolve(svgElm.outerHTML);
         });
       });
@@ -202,7 +202,7 @@ function (_SWebComponent) {
       _get(_getPrototypeOf(Component.prototype), "componentWillReceiveProp", this).call(this, name, newVal, oldVal);
 
       switch (name) {
-        case "icon":
+        case 'icon':
           {
             // inject the new icon
             this._generateIconHtmlDependingOnDriver().then(function (html) {
@@ -212,7 +212,7 @@ function (_SWebComponent) {
             break;
           }
 
-        case "driver":
+        case 'driver':
           {
             // inject library depending on driver
             this._injectLibraryDependingOnDriver();
@@ -220,10 +220,10 @@ function (_SWebComponent) {
             break;
           }
 
-        case "title":
+        case 'title':
           {
-            if (this.props.driver === "img") {
-              this.querySelector("img").setAttribute("alt", newVal);
+            if (this.props.driver === 'img') {
+              this.querySelector('img').setAttribute('alt', newVal);
             }
 
             break;
@@ -267,33 +267,54 @@ function (_SWebComponent) {
          * - `fonticon` : Use a font icon set
          * - `img` : Use an img tag to load the svg icon
          * - `svg` : Inline the svg directly in the page
-         * - 'fontawesome` : Using fontawesome icons. You still need to load the library by yourself
-         * - `material` : Using google material icons. You still need to load the library by yourself
+         * - 'fontawesome` : Using fontawesome icons.
+         * - `material` : Using google material icons.
          * @prop
          * @type    {String}
          */
-        driver: "svg",
+        driver: 'svg',
 
         /**
          * Specify the path to the icons folder relative to the document root of your project
          * @prop
          * @type    {String}
          */
-        iconsPath: "/dist/icons",
+        iconsPath: '/dist/icons',
 
         /**
          * Specify the icon prefix to use when using the `fonticon` driver
          * @prop
          * @type    {String}
          */
-        iconsPrefix: "icon-",
+        iconsPrefix: 'icon-',
 
         /**
          * Specify a title for the icon that will be also used as alt of the image when using img driver
          * @prop
          * @type    {String}
          */
-        title: null
+        title: null,
+
+        /**
+         * Specify the fontawesome icons css url to use
+         * @prop
+         * @type    {String}
+         */
+        fontawesomeCssUrl: 'https://use.fontawesome.com/releases/v5.7.1/css/all.css',
+
+        /**
+         * Specify the fontawesome icons css integrity checksum
+         * @prop
+         * @type    {String}
+         */
+        fontawesomeCssIntegrity: 'sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr',
+
+        /**
+         * Specify the fondation icons css url to use
+         * @prop
+         * @type    {String}
+         */
+        fondationCssUrl: 'https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css'
       };
     }
   }]);

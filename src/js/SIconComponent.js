@@ -1,5 +1,5 @@
-import SWebComponent from "coffeekraken-sugar/js/core/SWebComponent"
-import __axios from "axios"
+import SWebComponent from 'coffeekraken-sugar/js/core/SWebComponent'
+import __axios from 'axios'
 
 export default class Component extends SWebComponent {
   /**
@@ -22,33 +22,57 @@ export default class Component extends SWebComponent {
        * - `fonticon` : Use a font icon set
        * - `img` : Use an img tag to load the svg icon
        * - `svg` : Inline the svg directly in the page
-       * - 'fontawesome` : Using fontawesome icons. You still need to load the library by yourself
-       * - `material` : Using google material icons. You still need to load the library by yourself
+       * - 'fontawesome` : Using fontawesome icons.
+       * - `material` : Using google material icons.
        * @prop
        * @type    {String}
        */
-      driver: "svg",
+      driver: 'svg',
 
       /**
        * Specify the path to the icons folder relative to the document root of your project
        * @prop
        * @type    {String}
        */
-      iconsPath: "/dist/icons",
+      iconsPath: '/dist/icons',
 
       /**
        * Specify the icon prefix to use when using the `fonticon` driver
        * @prop
        * @type    {String}
        */
-      iconsPrefix: "icon-",
+      iconsPrefix: 'icon-',
 
       /**
        * Specify a title for the icon that will be also used as alt of the image when using img driver
        * @prop
        * @type    {String}
        */
-      title: null
+      title: null,
+
+      /**
+       * Specify the fontawesome icons css url to use
+       * @prop
+       * @type    {String}
+       */
+      fontawesomeCssUrl:
+        'https://use.fontawesome.com/releases/v5.7.1/css/all.css',
+
+      /**
+       * Specify the fontawesome icons css integrity checksum
+       * @prop
+       * @type    {String}
+       */
+      fontawesomeCssIntegrity:
+        'sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr',
+
+      /**
+       * Specify the fondation icons css url to use
+       * @prop
+       * @type    {String}
+       */
+      fondationCssUrl:
+        'https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css'
     }
   }
 
@@ -95,7 +119,7 @@ export default class Component extends SWebComponent {
    */
   _applyDefaultAttributes() {
     // aria hidden
-    this.setAttribute("aria-hidden", true)
+    this.setAttribute('aria-hidden', true)
   }
 
   /**
@@ -103,31 +127,29 @@ export default class Component extends SWebComponent {
    */
   _generateIconHtmlDependingOnDriver() {
     switch (this.props.driver) {
-      case "fonticon":
+      case 'fonticon':
         return Promise.resolve(
           `<i class="${this.props.iconsPrefix}${
             this.props.icon
           }" aria-hidden></i>`
         )
-      case "img":
+      case 'img':
         return Promise.resolve(
           `<img src="${this.props.iconsPath}/${this.props.icon}.svg" alt="${
             this.props.title
           }">`
         )
-      case "fontawesome":
-        return Promise.resolve(
-          `<i class="${this.props.icon}" aria-hidden></i>`
-        )
-      case "material":
+      case 'fontawesome':
+        return Promise.resolve(`<i class="${this.props.icon}" aria-hidden></i>`)
+      case 'material':
         return Promise.resolve(
           `<i class="material-icons" aria-hidden>${this.props.icon}</i>`
         )
-      case "foundation":
+      case 'foundation':
         return Promise.resolve(
           `<i class="fi-${this.props.icon}" aria-hidden></i>`
         )
-      case "svg":
+      case 'svg':
       default:
         return Promise.resolve(this._loadSvgIcon())
     }
@@ -138,47 +160,41 @@ export default class Component extends SWebComponent {
    */
   _injectLibraryDependingOnDriver() {
     switch (this.props.driver) {
-      case "fontawesome": {
-        const fontawesomeElm = document.querySelector("link#s-fontawesome")
+      case 'fontawesome': {
+        const fontawesomeElm = document.querySelector('link#s-fontawesome')
         if (fontawesomeElm) return
-        const linkFontawesomeElm = document.createElement("link")
-        linkFontawesomeElm.setAttribute("id", "s-fontawesome")
-        linkFontawesomeElm.setAttribute("rel", "stylesheet")
+        const linkFontawesomeElm = document.createElement('link')
+        linkFontawesomeElm.setAttribute('id', 's-fontawesome')
+        linkFontawesomeElm.setAttribute('rel', 'stylesheet')
+        linkFontawesomeElm.setAttribute('href', this.props.fontawesomeCssUrl)
         linkFontawesomeElm.setAttribute(
-          "href",
-          "https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+          'integrity',
+          this.props.fontawesomeCssIntegrity
         )
-        linkFontawesomeElm.setAttribute(
-          "integrity",
-          "sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
-        )
-        linkFontawesomeElm.setAttribute("crossorigin", "anonymous")
+        linkFontawesomeElm.setAttribute('crossorigin', 'anonymous')
         document.head.appendChild(linkFontawesomeElm)
         break
       }
-      case "material": {
-        const materialElm = document.querySelector("link#s-material")
+      case 'material': {
+        const materialElm = document.querySelector('link#s-material')
         if (materialElm) return
-        const linkMaterialElm = document.createElement("link")
-        linkMaterialElm.setAttribute("id", "s-material")
+        const linkMaterialElm = document.createElement('link')
+        linkMaterialElm.setAttribute('id', 's-material')
         linkMaterialElm.setAttribute(
-          "href",
-          "https://fonts.googleapis.com/icon?family=Material+Icons"
+          'href',
+          'https://fonts.googleapis.com/icon?family=Material+Icons'
         )
-        linkMaterialElm.setAttribute("rel", "stylesheet")
+        linkMaterialElm.setAttribute('rel', 'stylesheet')
         document.head.appendChild(linkMaterialElm)
         break
       }
-      case "foundation": {
-        const foundationElm = document.querySelector("link#s-foundation")
+      case 'foundation': {
+        const foundationElm = document.querySelector('link#s-foundation')
         if (foundationElm) return
-        const foundationLinkElm = document.createElement("link")
-        foundationLinkElm.setAttribute("id", "s-foundation")
-        foundationLinkElm.setAttribute(
-          "href",
-          "https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css"
-        )
-        foundationLinkElm.setAttribute("rel", "stylesheet")
+        const foundationLinkElm = document.createElement('link')
+        foundationLinkElm.setAttribute('id', 's-foundation')
+        foundationLinkElm.setAttribute('href', this.props.fondationCssUrl)
+        foundationLinkElm.setAttribute('rel', 'stylesheet')
         document.head.appendChild(foundationLinkElm)
         break
       }
@@ -197,9 +213,9 @@ export default class Component extends SWebComponent {
         .get(`${this.props.iconsPath}/${this.props.icon}.svg`)
         .then(response => {
           const domParser = new DOMParser()
-          const docElm = domParser.parseFromString(response.data, "text/html")
-          const svgElm = docElm.querySelector("svg")
-          svgElm.setAttribute("aria-hidden", true)
+          const docElm = domParser.parseFromString(response.data, 'text/html')
+          const svgElm = docElm.querySelector('svg')
+          svgElm.setAttribute('aria-hidden', true)
           resolve(svgElm.outerHTML)
         })
     })
@@ -222,21 +238,21 @@ export default class Component extends SWebComponent {
   componentWillReceiveProp(name, newVal, oldVal) {
     super.componentWillReceiveProp(name, newVal, oldVal)
     switch (name) {
-      case "icon": {
+      case 'icon': {
         // inject the new icon
         this._generateIconHtmlDependingOnDriver().then(html => {
           this._injectIcon(html)
         })
         break
       }
-      case "driver": {
+      case 'driver': {
         // inject library depending on driver
         this._injectLibraryDependingOnDriver()
         break
       }
-      case "title": {
-        if (this.props.driver === "img") {
-          this.querySelector("img").setAttribute("alt", newVal)
+      case 'title': {
+        if (this.props.driver === 'img') {
+          this.querySelector('img').setAttribute('alt', newVal)
         }
         break
       }
