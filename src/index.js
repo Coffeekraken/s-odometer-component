@@ -1,2 +1,2 @@
-import SIconComponent from "./js/SIconComponent"
-export default SIconComponent.define("s-icon", SIconComponent)
+import SOdometerComponent from "./js/SOdometerComponent"
+export default SOdometerComponent.define("s-odometer", SOdometerComponent)

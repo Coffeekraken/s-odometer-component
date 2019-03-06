@@ -1,12 +1,12 @@
 {
-  "name": "coffeekraken-s-icon-component",
-  "version": "1.0.1",
-  "description": "Easily integrate icons using various driver like \"img\", \"fonticon\", \"svg\", \"fontawesome\", \"material\" and \"foundation\"",
+  "name": "coffeekraken-s-odometer-component",
+  "version": "1.0.0",
+  "description": "Simple wecbomponent wrapper around the cool [odometer](https://github.hubspot.com/odometer/) library to create smooth transition between numbers",
   "main": "dist/index.js",
   "homepage": "http://coffeekraken.io",
   "repository": {
     "type": "git",
-    "url": "https://github.com/coffeekraken/s-icon-component"
+    "url": "https://github.com/coffeekraken/s-odometer-component"
   },
   "watch": {
     "doc:js": {
@@ -19,7 +19,10 @@
       "paths": "src/**/*.js"
     },
     "demo:js": {
-      "paths": "demo/src/**/*.js"
+      "paths": [
+        "demo/src/**/*.js",
+        "dist/js/**/*.js"
+      ]
     },
     "demo:css": {
       "paths": "demo/src/**/*.scss"
@@ -46,17 +49,10 @@
     "changelog": "git-changelog --version_name $npm_package_version  --app_name $npm_package_name --intro \"$npm_package_description\" --logo \".resources/coffeekraken-logo.jpg\""
   },
   "pre-commit": [
-    "pretty-quick-commit",
-    "lint"
+    "pretty-quick-commit"
   ],
   "keywords": [
-    "icon",
-    "font",
-    "img",
-    "svg",
-    "fontawesome",
-    "material",
-    "foundation",
+    "odometer",
     "webcomponent",
     "component",
     "html",
@@ -80,15 +76,14 @@
     ]
   },
   "dependencies": {
-    "@babel/polyfill": "^7.0.0",
-    "axios": "^0.18.0",
-    "coffeekraken-sugar": "^1.0.5"
+    "coffeekraken-sugar": "^1.0.77",
+    "odometer": "^0.4.8"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.2",
-    "@babel/core": "^7.1.2",
-    "@babel/plugin-proposal-class-properties": "^7.0.0",
-    "@babel/plugin-proposal-decorators": "^7.0.0",
+    "@babel/core": "^7.3.4",
+    "@babel/plugin-proposal-class-properties": "^7.3.4",
+    "@babel/plugin-proposal-decorators": "^7.3.0",
     "@babel/plugin-proposal-do-expressions": "^7.0.0",
     "@babel/plugin-proposal-export-default-from": "^7.0.0",
     "@babel/plugin-proposal-export-namespace-from": "^7.0.0",
@@ -98,37 +93,38 @@
     "@babel/plugin-proposal-logical-assignment-operators": "^7.0.0",
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.0.0",
     "@babel/plugin-proposal-numeric-separator": "^7.0.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.3.4",
     "@babel/plugin-proposal-optional-chaining": "^7.0.0",
-    "@babel/plugin-proposal-pipeline-operator": "^7.0.0",
+    "@babel/plugin-proposal-pipeline-operator": "^7.3.2",
     "@babel/plugin-proposal-throw-expressions": "^7.0.0",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
     "@babel/plugin-syntax-import-meta": "^7.0.0",
-    "@babel/preset-env": "^7.1.0",
-    "@webcomponents/webcomponentsjs": "^2.0.0",
+    "@babel/polyfill": "^7.2.5",
+    "@babel/preset-env": "^7.3.4",
+    "@webcomponents/webcomponentsjs": "^2.2.7",
     "babel-jest": "^23.4.2",
-    "babel-loader": "^8.0.0",
-    "coffeekraken-code-playground": "^1.0.0",
+    "babel-loader": "^8.0.5",
+    "coffeekraken-code-playground": "^1.0.19",
     "coffeekraken-docblock-to-markdown": "^1.0.0",
     "coffeekraken-s-typography-component": "^1.0.1",
     "coffeekraken-scripts-stack": "^1.0.1",
-    "eslint": "^5.7.0",
+    "eslint": "^5.15.1",
     "eslint-config-airbnb": "^17.1.0",
-    "eslint-config-prettier": "^3.1.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jsx-a11y": "^6.1.2",
-    "eslint-plugin-react": "^7.11.1",
+    "eslint-config-prettier": "^3.6.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.12.4",
     "git-changelog": "^1.1.2",
     "http-server": "^0.11.1",
     "jest": "^23.6.0",
     "node-sass": "^4.9.4",
     "pre-commit": "^1.2.2",
-    "prettier": "^1.14.3",
-    "pretty-quick": "^1.8.0",
-    "stylelint": "^9.3.0",
+    "prettier": "^1.16.4",
+    "pretty-quick": "^1.10.0",
+    "stylelint": "^9.10.1",
     "stylelint-config-standard": "^18.2.0",
     "webcomponents.js": "^0.7.24",
-    "webpack": "^4.23.1",
-    "webpack-cli": "^3.0.8"
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3"
   }
 }

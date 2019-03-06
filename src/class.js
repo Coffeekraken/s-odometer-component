@@ -1,2 +1,2 @@
-import SIconComponent from "./js/SIconComponent"
-export default SIconComponent
+import SOdometerComponent from "./js/SOdometerComponent"
+export default SOdometerComponent
