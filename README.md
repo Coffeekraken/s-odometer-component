@@ -57,7 +57,7 @@ npm install coffeekraken-s-odometer-component --save
 First, import the component into your javascript file like so:
 
 ```js
-import SIconComponent from "coffeekraken-s-odometer-component"
+import SOdometerComponent from "coffeekraken-s-odometer-component"
 ```
 
 Then simply use it inside your html like so:
